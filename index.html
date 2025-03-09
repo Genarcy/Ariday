@@ -32,10 +32,11 @@
         }
         .highlight {
             opacity: 1 !important;
-            animation: fadeOut 2s ease-in-out forwards;
+            animation: fadeOut var(--fade-duration, 5s) ease-in-out forwards;
         }
         @keyframes fadeOut {
             0% { opacity: 1; }
+            80% { opacity: 1; }
             100% { opacity: 0; }
         }
         button {
@@ -65,13 +66,13 @@
 
     <script>
         const lyricsData = [
-            { time: 1, text: "Its so Sweet <3" },
-            { time: 6, text: "Knowing that you love me" },
-            { time: 10, text: "Though we don't need to say it to" },
-             { time: 15, text: "each other, sweet" },
-               { time: 21, text: "Knowing that I love you" },
-                { time: 25, text: "and running my fingers through your hair" },
-                { time: 31, text: "It's so sweet <3" },
+            { time: 1, text: "Its so Sweet <3", duration: 5000 },
+            { time: 6, text: "Knowing that you love me", duration: 4000 },
+            { time: 10, text: "Though we don't need to say it to", duration: 6000 },
+            { time: 15, text: "each other, sweet", duration: 5000 },
+            { time: 21, text: "Knowing that I love you", duration: 7000 },
+            { time: 25, text: "and running my fingers through your hair", duration: 5000 },
+            { time: 31, text: "It's so sweet <3", duration: 8000 },
         ];
 
         function startKaraoke() {
@@ -91,11 +92,12 @@
                     const lyricElement = document.createElement("p");
                     lyricElement.className = "lyric-line highlight";
                     lyricElement.textContent = line.text;
+                    lyricElement.style.setProperty('--fade-duration', `${line.duration / 1000}s`);
                     lyricsDiv.appendChild(lyricElement);
 
                     setTimeout(() => {
                         lyricElement.remove();
-                    }, 3000);
+                    }, line.duration);
                 }, line.time * 1000);
             });
         }
