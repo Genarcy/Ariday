@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karaoke Lyrics</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #111;
+            color: white;
+        }
+        #lyrics {
+            font-size: 24px;
+            margin-top: 20px;
+        }
+        .highlight {
+            color: yellow;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Karaoke Time!</h1>
+    <audio id="song" src="sweet.mp3"></audio>
+    <button onclick="startKaraoke()">Start</button>
+    <div id="lyrics"></div>
+
+    <script>
+        const lyricsData = [
+            { time: 2, text: "First line of lyrics" },
+            { time: 5, text: "Second line of lyrics" },
+            { time: 8, text: "Third line of lyrics" },
+        ];
+
+        function startKaraoke() {
+            const audio = document.getElementById("song");
+            const lyricsDiv = document.getElementById("lyrics");
+            audio.play();
+            lyricsDiv.innerHTML = "";
+
+            lyricsData.forEach((line, index) => {
+                setTimeout(() => {
+                    lyricsDiv.innerHTML = `<p class='highlight'>${line.text}</p>`;
+                }, line.time * 1000);
+            });
+        }
+    </script>
+</body>
+</html>
