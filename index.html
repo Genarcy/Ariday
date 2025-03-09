@@ -24,6 +24,9 @@
             top: 50%;
             transform: translateY(-50%);
             text-shadow: 0 0 10px yellow, 0 0 20px yellow;
+            text-align: center;
+        }
+        .lyric-line {
             opacity: 0;
             transition: opacity 1s ease-in-out;
         }
@@ -59,7 +62,7 @@
 
     <script>
         const lyricsData = [
-            { time: 2, text: "Its so sweet <3" },
+            { time: 2, text: "It's so sweet <3" },
             { time: 5, text: "Knowing that you love me" },
             { time: 8, text: "Third line of lyrics" },
         ];
@@ -70,9 +73,16 @@
             audio.play();
             lyricsDiv.innerHTML = "";
 
-            lyricsData.forEach((line, index) => {
+            lyricsData.forEach((line) => {
                 setTimeout(() => {
-                    lyricsDiv.innerHTML = `<p class='highlight'>${line.text}</p>`;
+                    const lyricElement = document.createElement("p");
+                    lyricElement.className = "lyric-line highlight";
+                    lyricElement.textContent = line.text;
+                    lyricsDiv.appendChild(lyricElement);
+
+                    setTimeout(() => {
+                        lyricElement.remove();
+                    }, 3000); 
                 }, line.time * 1000);
             });
         }
