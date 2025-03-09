@@ -52,17 +52,20 @@
             transform: scale(1.1);
             box-shadow: 0 0 10px yellow;
         }
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
-    <h1>Press Play</h1>
+    <h1 id="title">Press Play</h1>
     <audio id="song" src="sweet.mp3"></audio>
-    <button onclick="startKaraoke()">Start</button>
+    <button id="startButton" onclick="startKaraoke()">Start</button>
     <div id="lyrics"></div>
 
     <script>
         const lyricsData = [
-            { time: 2, text: "It's so sweet <3" },
+            { time: 2, text: "Its so Sweet <3" },
             { time: 5, text: "Knowing that you love me" },
             { time: 8, text: "Third line of lyrics" },
         ];
@@ -70,6 +73,12 @@
         function startKaraoke() {
             const audio = document.getElementById("song");
             const lyricsDiv = document.getElementById("lyrics");
+            const title = document.getElementById("title");
+            const startButton = document.getElementById("startButton");
+            
+            title.classList.add("hidden");
+            startButton.classList.add("hidden");
+            
             audio.play();
             lyricsDiv.innerHTML = "";
 
@@ -82,7 +91,7 @@
 
                     setTimeout(() => {
                         lyricElement.remove();
-                    }, 3000); 
+                    }, 3000);
                 }, line.time * 1000);
             });
         }
